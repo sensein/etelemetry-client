@@ -1,0 +1,19 @@
+Metadata-Version: 1.2
+Name: etelemetry
+Version: 0+unknown
+Summary: Etelemetry python client API
+Home-page: https://github.com/mgxd/etelemetry-client
+Author: Mathias Goncalves
+Author-email: mathiasg@mit.edu
+License: Apache License, 2.0
+Description: UNKNOWN
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Provides: etelemetry
+Requires-Python: >= 2.7

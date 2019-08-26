@@ -1,0 +1,10 @@
+setup.cfg
+etelemetry/__init__.py
+etelemetry/_version.py
+etelemetry/client.py
+etelemetry.egg-info/PKG-INFO
+etelemetry.egg-info/SOURCES.txt
+etelemetry.egg-info/dependency_links.txt
+etelemetry.egg-info/requires.txt
+etelemetry.egg-info/top_level.txt
+etelemetry/config/__init__.py
