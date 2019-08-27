@@ -1,0 +1,16 @@
+# vim ft=yaml
+language: python
+python:
+  - 2.7
+  - 3.5
+  - 3.6
+  - 3.7
+
+install:
+  - pip install -e .[test]
+
+script:
+  - pytest -vs -n auto --cov etelemetry --cov-config .coveragerc --cov-report xml:cov.xml --doctest-modules etelemetry
+
+after_success:
+  - codecov --file cov.xml --flags unittests -e TRAVIS_JOB_NUMBER
