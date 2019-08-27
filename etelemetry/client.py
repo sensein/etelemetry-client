@@ -1,15 +1,14 @@
-import requests
+from requests import request, ConnectionError
 
 from .config import ET_PROJECTS
 
 
-def _etrequest(endpoint, request="GET", valid_codes=(200,)):
+def _etrequest(endpoint, method="get", **kwargs):
     try:
-        res = requests.get(endpoint)
-    except requests.ConnectionError:
+        res = request(method, endpoint, **kwargs)
+    except ConnectionError:
         raise RuntimeError("Connection to server could not be made")
-    if res.status_code not in valid_codes:
-        raise RuntimeError("Response %s is not valid" % res)
+    res.raise_for_status()
     return res
 
 
@@ -28,6 +27,6 @@ def get_project(repo):
         Dictionary with `version` field
     """
     if "/" not in repo:
-        raise TypeError("Invalid repository")
+        raise ValueError("Invalid repository")
     res = _etrequest(ET_PROJECTS + repo)
     return res.json(encoding="utf-8")
