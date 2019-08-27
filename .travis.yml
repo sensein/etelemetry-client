@@ -7,7 +7,7 @@ python:
   - 3.7
 
 install:
-  - pip install -e .[test]
+  - pip install -U -e .[test]
 
 script:
   - pytest -vs -n auto --cov etelemetry --cov-config .coveragerc --cov-report xml:cov.xml --doctest-modules etelemetry
