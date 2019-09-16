@@ -12,7 +12,9 @@ def _etrequest(endpoint, method="get", **kwargs):
         raise RuntimeError("Connection to server could not be made")
     except ReadTimeout:
         raise RuntimeError(
-            f"No response from server in {kwargs.get('timeout')} seconds"
+            "No response from server in {timeout} seconds".format(
+                timeout=kwargs.get('timeout')
+            )
         )
     res.raise_for_status()
     return res
