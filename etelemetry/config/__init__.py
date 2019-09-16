@@ -1,12 +1,13 @@
-hostname = "rig.mit.edu/"
+hostname = "rig.mit.edu"
 https = True
 
 if https is True:
-    ET_ROOT = "https://" + hostname
+    prefix = "https"
 else:
-    ET_ROOT = "http://" + hostname
+    prefix = "http"
 
-root_endpoint = "et/"
-ET_ROOT += root_endpoint
+ET_ROOT = "{prefix}://{hostname}/et/".format(
+    prefix=prefix, hostname=hostname
+)
 
-ET_PROJECTS = ET_ROOT + "projects/"
+ET_PROJECTS = ET_ROOT + "projects/{repo}"
