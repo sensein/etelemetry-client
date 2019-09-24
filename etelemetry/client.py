@@ -2,6 +2,8 @@ from requests import request, ConnectionError, ReadTimeout
 
 from .config import ET_PROJECTS
 
+import os
+
 
 def _etrequest(endpoint, method="get", **kwargs):
     if kwargs.get('timeout') is None:
@@ -36,6 +38,8 @@ def get_project(repo, **rargs):
     response
         Dictionary with `version` field
     """
+    if 'DISABLE_ET' in os.environ:
+        return {}
     if "/" not in repo:
         raise ValueError("Invalid repository")
     res = _etrequest(ET_PROJECTS.format(repo=repo), **rargs)
