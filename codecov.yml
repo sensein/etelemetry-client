@@ -4,3 +4,4 @@ coverage:
     - "etelemetry/_version.py"
     - "setup.py"
     - "versioneer.py"
+    - "etelemetry/tests"
