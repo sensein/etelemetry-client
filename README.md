@@ -1,7 +1,7 @@
 ## Etelemetry-client
 
-[![Build Status](https://travis-ci.org/mgxd/etelemetry-client.svg?branch=master)](https://travis-ci.org/mgxd/etelemetry-client)
-[![codecov](https://codecov.io/gh/mgxd/etelemetry-client/branch/master/graph/badge.svg)](https://codecov.io/gh/mgxd/etelemetry-client)
+[![Build Status](https://travis-ci.org/sensein/etelemetry-client.svg?branch=master)](https://travis-ci.org/sensein/etelemetry-client)
+[![codecov](https://codecov.io/gh/sensein/etelemetry-client/branch/master/graph/badge.svg)](https://codecov.io/gh/sensein/etelemetry-client)
 
 A lightweight python client to communicate with the etelemetry server
 
