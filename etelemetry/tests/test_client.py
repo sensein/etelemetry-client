@@ -1,7 +1,7 @@
 import pytest
 
 from ..config import ET_ROOT
-from ..client import _etrequest, get_project
+from ..client import _etrequest, get_project, check_available_version
 
 
 def test_etrequest():
@@ -38,3 +38,12 @@ def test_noet():
         del os.environ["NO_ET"]
     else:
         os.environ["NO_ET"] = old_var[1]
+
+
+def test_check_available():
+    repo = "invalidrepo"
+    with pytest.raises(ValueError):
+        check_available_version(repo)
+    repo = "github/hub"
+    res = check_available_version(repo)
+    assert "version" in res
