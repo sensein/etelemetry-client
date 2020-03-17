@@ -87,8 +87,10 @@ def check_available_version(project, lgr=None, raise_exception=False):
             local_version = parse_version(__version__)
             remote_version = parse_version(latest["version"])
             if  local_version < remote_version:
-                lgr.info(f"A newer version ({latest[version]}) of {project} "
-                         f"is available. You are using {__version__}")
+                lgr.info("A newer version (%s) of %s is available. "
+                         "You are using %s".format(latest["version"],
+                                                   project,
+                                                   __version__))
             elif remote_version < local_version:
                 lgr.debug(
                     "Running a newer version (%s) of %s than available (%s)",
@@ -102,8 +104,8 @@ def check_available_version(project, lgr=None, raise_exception=False):
                         for ver in latest["bad_versions"]
                     ]
             ):
-                message = f"You are using a version of {project} with a " \
-                          f"critical bug. Please use a different version."
+                message = "You are using a version of %s with a critical bug. " \
+                          "Please use a different version.".format(project)
                 if raise_exception:
                     raise RuntimeError(message)
                 else:
