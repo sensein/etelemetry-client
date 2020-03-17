@@ -2,7 +2,7 @@ from requests import request, ConnectionError, ReadTimeout
 import os
 from .config import ET_PROJECTS
 
-_available_version_checked = False
+_available_version_checked = None
 
 def _etrequest(endpoint, method="get", **kwargs):
     if kwargs.get('timeout') is None:
@@ -54,9 +54,8 @@ def check_available_version(project, version, lgr=None, raise_exception=False):
       as on GitHub (e.g., sensein/etelemetry-client. Releases will be checked
     """
     global _available_version_checked
-    if _available_version_checked:
-        return
-    _available_version_checked = True
+    if _available_version_checked is not None:
+        return _available_version_checked
 
     if lgr is None:
         import logging
@@ -108,4 +107,5 @@ def check_available_version(project, version, lgr=None, raise_exception=False):
                     raise RuntimeError(message)
                 else:
                     lgr.critical(message)
+            _available_version_checked = latest
     return latest
