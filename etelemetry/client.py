@@ -60,7 +60,7 @@ def check_available_version(project, lgr=None, raise_exception=False):
 
     if lgr is None:
         import logging
-        lgr = logging.logger('etlogger')
+        lgr = logging.getLogger('et')
 
     # TODO: run in a separate thread
     try:
