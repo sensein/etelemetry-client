@@ -75,6 +75,7 @@ def check_available_version(project, version, lgr=None, raise_exception=False):
     from pkg_resources import parse_version
 
     latest = {"version": "Unknown", "bad_versions": []}
+    ret = None
     try:
         ret = etelemetry.get_project(project)
     except Exception as e:
