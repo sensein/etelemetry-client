@@ -43,7 +43,7 @@ def test_noet():
 def test_check_available():
     repo = "invalidrepo"
     with pytest.raises(ValueError):
-        check_available_version(repo)
+        check_available_version(repo, "0.1.0")
     repo = "github/hub"
-    res = check_available_version(repo)
+    res = check_available_version(repo, "0.1.0")
     assert "version" in res

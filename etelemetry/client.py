@@ -45,7 +45,7 @@ def get_project(repo, **rargs):
     return res.json(encoding="utf-8")
 
 
-def check_available_version(project, lgr=None, raise_exception=False):
+def check_available_version(project, version, lgr=None, raise_exception=False):
     """A helper to check (and report) if newer version of project is available
     Should be ok to execute multiple times, it will be checked only one time
     Parameters
@@ -73,7 +73,6 @@ def check_available_version(project, lgr=None, raise_exception=False):
         return
 
     from pkg_resources import parse_version
-    from . import __version__
 
     latest = {"version": "Unknown", "bad_versions": []}
     try:
@@ -84,20 +83,18 @@ def check_available_version(project, lgr=None, raise_exception=False):
     finally:
         if ret:
             latest.update(**ret)
-            local_version = parse_version(__version__)
+            local_version = parse_version(version)
             remote_version = parse_version(latest["version"])
             if  local_version < remote_version:
-                lgr.info("A newer version (%s) of %s is available. "
-                         "You are using %s".format(latest["version"],
-                                                   project,
-                                                   __version__))
+                lgr.info("A newer version (%s) of %s is available. You are "
+                         "using %s", latest["version"], project, version)
             elif remote_version < local_version:
                 lgr.debug(
                     "Running a newer version (%s) of %s than available (%s)",
-                    __version__, project, latest["version"])
+                    version, project, latest["version"])
             else:  # ==
                 lgr.debug("No newer (than %s) version of %s found available",
-                          __version__, project)
+                          version, project)
             if latest["bad_versions"] and any(
                     [
                         local_version == parse_version(ver)
