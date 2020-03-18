@@ -4,6 +4,7 @@ from .config import ET_PROJECTS
 
 _available_version_checked = None
 
+
 def _etrequest(endpoint, method="get", **kwargs):
     if kwargs.get('timeout') is None:
         kwargs['timeout'] = 5
@@ -52,6 +53,12 @@ def check_available_version(project, version, lgr=None, raise_exception=False):
     ----------
     project: str
       as on GitHub (e.g., sensein/etelemetry-client. Releases will be checked
+    version: str
+      local version of project
+    lgr: python logger object
+      external logger to be used
+    raise_exception: bool
+      raise an exception is a bad local version is detected
     """
     global _available_version_checked
     if _available_version_checked is not None:
@@ -61,22 +68,12 @@ def check_available_version(project, version, lgr=None, raise_exception=False):
         import logging
         lgr = logging.getLogger('et')
 
-    # TODO: run in a separate thread
-    try:
-        import etelemetry
-    except ImportError as exc:
-        lgr.debug(
-            "Cannot check latest available version for %s: %s",
-            project, exc
-        )
-        return
-
     from pkg_resources import parse_version
 
     latest = {"version": "Unknown", "bad_versions": []}
     ret = None
     try:
-        ret = etelemetry.get_project(project)
+        ret = get_project(project)
     except Exception as e:
         lgr.debug("Could not check %s for version updates: %s", project, e)
         return None
@@ -85,7 +82,7 @@ def check_available_version(project, version, lgr=None, raise_exception=False):
             latest.update(**ret)
             local_version = parse_version(version)
             remote_version = parse_version(latest["version"])
-            if  local_version < remote_version:
+            if local_version < remote_version:
                 lgr.info("A newer version (%s) of %s is available. You are "
                          "using %s", latest["version"], project, version)
             elif remote_version < local_version:
