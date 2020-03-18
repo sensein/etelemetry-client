@@ -1,5 +1,8 @@
 from requests import request, ConnectionError, ReadTimeout
 import os
+
+import ci
+
 from .config import ET_PROJECTS
 
 _available_version_checked = None
@@ -8,8 +11,14 @@ _available_version_checked = None
 def _etrequest(endpoint, method="get", **kwargs):
     if kwargs.get('timeout') is None:
         kwargs['timeout'] = 5
+
+    params = {}
+    if ci.is_ci():
+        # send along CI information
+        params = ci.info()
+
     try:
-        res = request(method, endpoint, **kwargs)
+        res = request(method, endpoint, params=params, **kwargs)
     except ConnectionError:
         raise RuntimeError("Connection to server could not be made")
     except ReadTimeout:
