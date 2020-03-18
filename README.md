@@ -19,3 +19,13 @@ etelemetry.get_project("nipy/nipype")
 
 {'version': '1.2.1'}
 ```
+
+or to take advantage of comparing and checking for bad versions, you
+can use the following form
+
+```python
+import etelemetry
+etelemetry.check_available_version("nipy/nipype", "1.5.0")
+
+{'version': '1.2.1'}
+```
