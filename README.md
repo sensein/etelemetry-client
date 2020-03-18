@@ -17,7 +17,7 @@ pip install etelemetry
 import etelemetry
 etelemetry.get_project("nipy/nipype")
 
-{'version': '1.2.1'}
+{'version': '1.4.2', 'bad_versions': ['1.2.1', '1.2.3', '1.3.0']}
 ```
 
 or to take advantage of comparing and checking for bad versions, you
@@ -25,7 +25,9 @@ can use the following form
 
 ```python
 import etelemetry
-etelemetry.check_available_version("nipy/nipype", "1.5.0")
+etelemetry.check_available_version("nipy/nipype", "1.2.1")
 
-{'version': '1.2.1'}
+A newer version (1.4.2) of nipy/nipype is available. You are using 1.2.1
+You are using a version of nipy/nipype with a critical bug. Please use a different version.
+returns: {'version': '1.4.2', 'bad_versions': ['1.2.1', '1.2.3', '1.3.0']}
 ```

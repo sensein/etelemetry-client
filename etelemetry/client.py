@@ -75,7 +75,7 @@ def check_available_version(project, version, lgr=None, raise_exception=False):
 
     if lgr is None:
         import logging
-        lgr = logging.getLogger('et')
+        lgr = logging.getLogger('et-client')
 
     from pkg_resources import parse_version
 
@@ -92,8 +92,8 @@ def check_available_version(project, version, lgr=None, raise_exception=False):
             local_version = parse_version(version)
             remote_version = parse_version(latest["version"])
             if local_version < remote_version:
-                lgr.info("A newer version (%s) of %s is available. You are "
-                         "using %s", latest["version"], project, version)
+                lgr.warning("A newer version (%s) of %s is available. You are "
+                            "using %s", latest["version"], project, version)
             elif remote_version < local_version:
                 lgr.debug(
                     "Running a newer version (%s) of %s than available (%s)",
@@ -107,8 +107,8 @@ def check_available_version(project, version, lgr=None, raise_exception=False):
                         for ver in latest["bad_versions"]
                     ]
             ):
-                message = "You are using a version of %s with a critical bug. " \
-                          "Please use a different version.".format(project)
+                message = ("You are using a version of {0} with a critical bug. "
+                          "Please use a different version.").format(project)
                 if raise_exception:
                     raise RuntimeError(message)
                 else:
