@@ -58,7 +58,7 @@ def check_available_version(project, version, lgr=None, raise_exception=False):
     lgr: python logger object
       external logger to be used
     raise_exception: bool
-      raise an exception is a bad local version is detected
+      raise an exception if a bad local version is detected
     """
     global _available_version_checked
     if _available_version_checked is not None:
