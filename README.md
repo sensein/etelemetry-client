@@ -25,7 +25,7 @@ can use the following form
 
 ```python
 import etelemetry
-etelemetry.check_available_version("nipy/nipype", "1.2.1")
+etelemetry.check_available_version("nipy/nipype", "1.2.1") # github_org/project
 
 A newer version (1.4.2) of nipy/nipype is available. You are using 1.2.1
 You are using a version of nipy/nipype with a critical bug. Please use a different version.
@@ -36,7 +36,8 @@ returns: {'version': '1.4.2', 'bad_versions': ['1.2.1', '1.2.3', '1.3.0']}
 
 You can include etelemetry in your project by adding `etelemetry` package to your setup process 
 and by adding the following snippet to your `__init__.py`. The code snippet below assumes you 
-have a `__version__` and `usemylogger` (logger) variables available.
+have a `__version__` and `usemylogger` (logger) variables available. The check takes the form 
+of `github_org/project`.
 
 ```python
 # Run telemetry on import for interactive sessions, such as IPython, Jupyter
