@@ -1,7 +1,14 @@
 from requests import request, ConnectionError, ReadTimeout
 import os
 
-import ci
+try:
+    import ci_info
+except ImportError:
+    import warnings
+    warnings.warn(
+        "Deprecated version of ci-info found, upgrade to remove this warning", DeprecationWarning
+    )
+    import ci as ci_info
 
 from .config import ET_PROJECTS
 
@@ -13,9 +20,9 @@ def _etrequest(endpoint, method="get", **kwargs):
         kwargs['timeout'] = 5
 
     params = {}
-    if ci.is_ci():
+    if ci_info.is_ci():
         # send along CI information
-        params = ci.info()
+        params = ci_info.info()
 
     try:
         res = request(method, endpoint, params=params, **kwargs)
