@@ -3,8 +3,10 @@
 *.egg-info/
 __pycache__/
 .pytest_cache/
-
+*pyc
 .coverage*
 cov.xml
 build
 dist
+.idea
+.DS_Store
