@@ -15,6 +15,11 @@ from .config import ET_PROJECTS
 _available_version_checked = None
 
 
+class BadVersionError(RuntimeError):
+    """Local version is known to contain a critical bug etc."""
+    pass
+
+
 def _etrequest(endpoint, method="get", **kwargs):
     if kwargs.get('timeout') is None:
         kwargs['timeout'] = 5
@@ -65,6 +70,7 @@ def get_project(repo, **rargs):
 def check_available_version(project, version, lgr=None, raise_exception=False):
     """A helper to check (and report) if newer version of project is available
     Should be ok to execute multiple times, it will be checked only one time
+
     Parameters
     ----------
     project: str
@@ -74,7 +80,7 @@ def check_available_version(project, version, lgr=None, raise_exception=False):
     lgr: python logger object
       external logger to be used
     raise_exception: bool
-      raise an exception if a bad local version is detected
+      raise a BadVersionError exception if a bad local version is detected
     """
     global _available_version_checked
     if _available_version_checked is not None:
@@ -117,7 +123,7 @@ def check_available_version(project, version, lgr=None, raise_exception=False):
                 message = ("You are using a version of {0} with a critical bug. "
                           "Please use a different version.").format(project)
                 if raise_exception:
-                    raise RuntimeError(message)
+                    raise BadVersionError(message)
                 else:
                     lgr.critical(message)
             _available_version_checked = latest
