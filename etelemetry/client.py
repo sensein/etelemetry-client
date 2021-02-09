@@ -1,4 +1,3 @@
-from requests import request, ConnectionError, ReadTimeout
 import os
 
 try:
@@ -21,6 +20,9 @@ class BadVersionError(RuntimeError):
 
 
 def _etrequest(endpoint, method="get", **kwargs):
+    # Delay requests import until actually used to at least not
+    # add runtime penalty of requests import whenever not needed
+    from requests import request, ConnectionError, ReadTimeout
     if kwargs.get('timeout') is None:
         kwargs['timeout'] = 5
 
