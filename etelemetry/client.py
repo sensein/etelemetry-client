@@ -66,7 +66,7 @@ def get_project(repo, **rargs):
     if "/" not in repo:
         raise ValueError("Invalid repository")
     res = _etrequest(ET_PROJECTS.format(repo=repo), **rargs)
-    return res.json(encoding="utf-8")
+    return res.json()
 
 
 def check_available_version(project, version, lgr=None, raise_exception=False):
