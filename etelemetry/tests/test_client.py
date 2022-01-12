@@ -12,7 +12,7 @@ def test_etrequest():
     # ensure timeout is working properly
     endpoint = "https://google.com"
     with pytest.raises(RuntimeError):
-        _etrequest(endpoint, timeout=0.01)
+        _etrequest(endpoint, timeout=0.001)
     assert _etrequest(endpoint)
 
 
