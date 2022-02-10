@@ -1,5 +1,9 @@
 # Design doc to facilitate feature specification
 
+## Etelemetry service objectives:
+- Return useful information to the user about the state of the software (bugs, new versions, etc.,.)
+- Track software usage
+
 ## Wishlist
 - use a more generic logging tool as the backend (like prometheus)
 - discard IP addresses after geo conversion
