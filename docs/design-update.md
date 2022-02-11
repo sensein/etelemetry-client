@@ -1,8 +1,22 @@
 # Design doc to facilitate feature specification
 
 ## Etelemetry service objectives:
-- Return useful information to the user about the state of the software (bugs, new versions, etc.,.)
-- Track software usage
+- Track software usage. Annotations:
+  - Process starts
+  - Process ends + exit status
+  - Heartbeats for long runtime tasks
+  - Software version
+  - Platform (bare-metal, container, etc.)
+  - Relevant options
+  - "Session" information
+  - "User" information
+  - (possibly) Elapsed time
+  - (possibly) Memory utilization
+  - (possibly) CPU utilization
+- Feedback to users:
+  - Notice of new versions available
+  - "Retired" versions (i.e., bad versions with disqualifying bugs)
+  - ETA (progress bar or such, using previously acquired stats from other users)
 
 ## Wishlist
 - use a more generic logging tool as the backend (like prometheus)
