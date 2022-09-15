@@ -4,6 +4,20 @@ from ..config import ET_ROOT
 from ..client import _etrequest, get_project, check_available_version
 
 
+def check_cxn():
+    import requests
+
+    try:
+        requests.get("https://google.com")
+        return True
+    except Exception:
+        return False
+
+
+no_cxn = check_cxn() is False
+
+
+@pytest.mark.skipif(no_cxn, reason="No connection")
 def test_etrequest():
     endpoint = "http://fakeendpoint/"
     with pytest.raises(RuntimeError):
@@ -16,6 +30,7 @@ def test_etrequest():
     assert _etrequest(endpoint)
 
 
+@pytest.mark.skipif(no_cxn, reason="No connection")
 def test_get_project():
     repo = "invalidrepo"
     with pytest.raises(ValueError):
@@ -27,8 +42,9 @@ def test_get_project():
 
 def test_noet():
     import os
+
     old_var = None
-    if 'NO_ET' in os.environ:
+    if "NO_ET" in os.environ:
         old_var = (True, os.environ["NO_ET"])
     os.environ["NO_ET"] = "1"
     repo = "github/hub"
@@ -40,6 +56,7 @@ def test_noet():
         os.environ["NO_ET"] = old_var[1]
 
 
+@pytest.mark.skipif(no_cxn, reason="No connection")
 def test_check_available():
     repo = "invalidrepo"
     res = check_available_version(repo, "0.1.0")
