@@ -4,6 +4,10 @@
 name: Upload Python Package
 
 on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
   release:
     types: [created]
 
@@ -15,12 +19,13 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-python@v4
-    - name: Build
+    - name: Build and check package
       run: |
         pipx run build
         pipx run twine check dist/*
     - name: Upload to PyPI
       run: pipx run twine upload dist/*
+      if: ${{ github.event_name == 'release' }}
       env:
         TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
         TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
