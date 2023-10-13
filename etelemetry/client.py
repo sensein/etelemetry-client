@@ -1,4 +1,5 @@
 import os
+from packaging.version import Version
 
 try:
     import ci_info
@@ -92,8 +93,6 @@ def check_available_version(project, version, lgr=None, raise_exception=False):
         import logging
         lgr = logging.getLogger('et-client')
 
-    from pkg_resources import parse_version
-
     latest = {"version": "Unknown", "bad_versions": []}
     ret = None
     try:
@@ -104,8 +103,8 @@ def check_available_version(project, version, lgr=None, raise_exception=False):
     finally:
         if ret:
             latest.update(**ret)
-            local_version = parse_version(version)
-            remote_version = parse_version(latest["version"])
+            local_version = Version(version)
+            remote_version = Version(latest["version"])
             if local_version < remote_version:
                 lgr.warning("A newer version (%s) of %s is available. You are "
                             "using %s", latest["version"], project, version)
@@ -118,7 +117,7 @@ def check_available_version(project, version, lgr=None, raise_exception=False):
                           version, project)
             if latest["bad_versions"] and any(
                     [
-                        local_version == parse_version(ver)
+                        local_version == Version(ver)
                         for ver in latest["bad_versions"]
                     ]
             ):
