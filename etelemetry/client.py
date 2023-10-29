@@ -10,7 +10,7 @@ except ImportError:
     )
     import ci as ci_info
 
-from .config import ET_PROJECTS
+from etelemetry.config import get_endpoints
 
 _available_version_checked = None
 
@@ -66,7 +66,7 @@ def get_project(repo, **rargs):
         return None
     if "/" not in repo:
         raise ValueError("Invalid repository")
-    res = _etrequest(ET_PROJECTS.format(repo=repo), **rargs)
+    res = _etrequest(get_endpoints().gen_repo_url(repo), **rargs)
     return res.json()
 
 
